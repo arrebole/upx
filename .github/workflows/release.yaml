@@ -1,11 +1,11 @@
-name: Release
+name: Build Release
 
 on:
-  push:
-    tags:
-      - "v*"
+  release:
+    types: [created]
 
 jobs:
+
   releases-matrix:
     name: Release Go Binary
     runs-on: ubuntu-latest
