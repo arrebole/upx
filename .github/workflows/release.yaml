@@ -1,8 +1,8 @@
 name: Build Release
 
 on:
-  release:
-    types: [created]
+  create:
+    tags:
 
 jobs:
 
@@ -20,12 +20,35 @@ jobs:
             goos: windows
     steps:
     - uses: actions/checkout@v3
-    - uses: wangyoucao577/go-release-action@v1
+
+    # 编译
+    - name: Build
+        run: go build -v ./...
+
+    # 压缩成 zip
+    - name: Zip
+        run: zip -r ./dist/upx_${{ github.ref }}.${{ matrix.goos }}-${{ matrix.goarch }}.zip upx*
+    
+    # 创建发布页面
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        goos: ${{ matrix.goos }}
-        goarch: ${{ matrix.goarch }}
-        goversion: "https://dl.google.com/go/go1.20.1.linux-amd64.tar.gz"
-        project_path: "./cmd/upx"
-        binary_name: "upx"
-        extra_files: LICENSE README.md
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: TODO New Release.
+        draft: false
+        prerelease: false
+
+    # 上传编译好的内容
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./dist/upx_${{ github.ref }}.${{ matrix.goos }}-${{ matrix.goarch }}.zip
+        asset_name: upx_${{ github.ref }}.${{ matrix.goos }}-${{ matrix.goarch }}.zip
+        asset_content_type: application/zip
