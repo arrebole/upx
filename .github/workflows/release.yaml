@@ -23,11 +23,11 @@ jobs:
 
     # 编译
     - name: Build
-        run: go build -v ./...
+      run: go build -v ./...
 
     # 压缩成 zip
     - name: Zip
-        run: zip -r ./dist/upx_${{ github.ref }}.${{ matrix.goos }}-${{ matrix.goarch }}.zip upx*
+      run: zip -r ./dist/upx_${{ github.ref }}.${{ matrix.goos }}-${{ matrix.goarch }}.zip upx*
     
     # 创建发布页面
     - name: Create Release
