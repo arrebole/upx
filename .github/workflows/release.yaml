@@ -1,4 +1,4 @@
-name: Build Release
+name: Release
 
 on:
   push:
@@ -26,6 +26,6 @@ jobs:
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         goversion: "https://dl.google.com/go/go1.20.1.linux-amd64.tar.gz"
-        project_path: "./cmd/npx"
+        project_path: "./cmd/upx"
         binary_name: "upx"
         extra_files: LICENSE README.md
