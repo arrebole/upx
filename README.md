@@ -24,7 +24,10 @@
 
 ## 安装
 
-### 可执行程序二进制下载地址
+### 新版本下载地址
+- [github release](/releases)
+
+### 旧版本（0.3.6）可执行程序二进制下载地址
 
 - [Windows x86_64](https://collection.b0.upaiyun.com/softwares/upx/upx_0.3.6_Windows_x86_64.zip)
 - [Windows i386](https://collection.b0.upaiyun.com/softwares/upx/upx_0.3.6_Windows_i386.zip)
@@ -42,27 +45,6 @@
 ```
 $ git clone https://github.com/upyun/upx.git
 $ cd upx && make
-```
-or
-
-```
-$ GO111MODULE=on go get -u github.com/upyun/upx@v0.3.6
-```
-
-### Windows
-
-```
-PS> scoop bucket add carrot https://github.com/upyun/carrot.git
-Install upx from github or upyun cdn:
-PS> scoop install upx-github
-PS> scoop install upx-upcdn
-```
-
-### Docker
-
-```bash
-docker build -t upx .
-docker run --rm upx upx -v
 ```
 
 ## 使用
